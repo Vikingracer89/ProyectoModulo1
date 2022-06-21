@@ -5,8 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ahorcado</title>
+    <link rel="stylesheet" href="./ahorcado.css" />
   </head>
   <body>
-    <script src="./ahorcado.js"></script>
+    <h1>Juego del ahoracado</h1>
+    <section class="panel presentacion">
+      <h2>¡Bienvenido al Juego del Ahorcado!</h2>
+      <p>
+        El Juego consiste en adivinar una palabra introduciendo una letra cada
+        vez, si aciertas, todas las letras que contenga la palabra se mostraran
+        en pantalla, pero si fallas, poco a poco se ira dibujando al ahorcado en
+        la pantalla
+      </p>
+      <p>
+        Puedes elegir la dificultad, en las dificultades facil y normal tendras
+        6 intentos, pero en la dificultad dificil ¡solo 5!
+      </p>
+      <label for="Dificultad"
+        >Por favor, selecciona la dificultad y haz click en comenzar</label
+      >
+      <select name="Dificultad" id="Dificultad"></select>
+      <option value="1">Facil</option>
+      <option value="2">Normal</option>
+      <option value="3">Dificil</option>
+      <button class="start">Comenzar</button>
+    </section>
+
+    <section class="panel juego">
+      <p>Introduce una letra</p>
+
+      <input type="text" maxlength="1" id="letra" />
+      <button id="comprobarLetra">¿Esta mi letra?</button>
+
+      <p id="palabra"></p>
+
+      <script src="./ahorcado.js"></script>
+
+      <section></section>
+    </section>
+    <section class="Lose">
+      <h2>Lo siento, has perdido</h2>
+      <img src="" alt="Has perdido" />
+    </section>
+
+    <section class="Win">
+      <h2>Lo siento, has perdido</h2>
+      <img src="" alt="Has Ganado" />
+    </section>
   </body>
 </html>
