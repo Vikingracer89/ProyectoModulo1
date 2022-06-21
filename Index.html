@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="./ahorcado.css" />
   </head>
   <body>
-    <h1>Juego del ahoracado</h1>
-    <section class="panel presentacion">
+    <h1>Juego del ahorcado</h1>
+    <section class="panel presentacion hidden">
       <h2>¡Bienvenido al Juego del Ahorcado!</h2>
       <p>
         El Juego consiste en adivinar una palabra introduciendo una letra cada
@@ -24,14 +24,15 @@
       <label for="Dificultad"
         >Por favor, selecciona la dificultad y haz click en comenzar</label
       >
-      <select name="Dificultad" id="Dificultad"></select>
-      <option value="1">Facil</option>
-      <option value="2">Normal</option>
-      <option value="3">Dificil</option>
+      <select name="Dificultad" id="Dificultad" multiple>
+        <option value="1">Facil</option>
+        <option value="2">Normal</option>
+        <option value="3">Dificil</option>
+      </select>
       <button class="start">Comenzar</button>
     </section>
 
-    <section class="panel juego">
+    <section class="panel juego hidden">
       <p>Introduce una letra</p>
 
       <input type="text" maxlength="1" id="letra" />
@@ -39,18 +40,22 @@
 
       <p id="palabra"></p>
 
-      <script src="./ahorcado.js"></script>
-
       <section></section>
     </section>
-    <section class="Lose">
+    <section class="panel lose hidden">
       <h2>Lo siento, has perdido</h2>
       <img src="" alt="Has perdido" />
+      <button class="again">Volver a Jugar</button>
+      <button class="home">Volver al menu principal</button>
     </section>
 
-    <section class="Win">
+    <section class="panel win hidden">
       <h2>Lo siento, has perdido</h2>
       <img src="" alt="Has Ganado" />
+      <button class="again">Volver a Jugar</button>
+      <button class="home">Volver al menu principal</button>
     </section>
+
+    <script type="module" src="./ahorcado.js"></script>
   </body>
 </html>

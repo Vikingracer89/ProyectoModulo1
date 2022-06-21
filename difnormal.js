@@ -1,0 +1,20 @@
+"use strict";
+export const normal = [
+  "abono",
+  "abuelo",
+  "aceite",
+  "basura",
+  "broma",
+  "bañera",
+  "cabaña",
+  "cables",
+  "cereza",
+  "dinero",
+  "dragon",
+  "dormir",
+  "encima",
+  "fresco",
+  "gritar",
+  "herida",
+  "moneda",
+];
