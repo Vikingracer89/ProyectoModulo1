@@ -34,6 +34,7 @@ function main() {
   presentacionButton.addEventListener("click", () => {
     hideAllPanel();
     showJuego();
+    seleccionarDificultad();
   });
 }
 
@@ -85,3 +86,18 @@ function showLose() {
 }
 
 main();
+
+// Seleccionar dificultad
+
+function seleccionarDificultad() {
+  let dificultad = document.getElementById("Dificultad");
+  let valor = Dificultad.value;
+
+  if (valor == "1") {
+    palabras = faciles;
+  } else if (valor == "2") {
+    palabras = normal;
+  } else {
+    palabras = dificil;
+  }
+}
