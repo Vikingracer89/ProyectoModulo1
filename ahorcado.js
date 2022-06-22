@@ -12,6 +12,8 @@ const presentacion = document.querySelector(".presentacion");
 const juego = document.querySelector(".juego");
 const lose = document.querySelector(".lose");
 const win = document.querySelector(".win");
+
+// constante de prueba, borrar
 const gameWin = false;
 
 function showPanel(panel) {
@@ -37,7 +39,7 @@ function main() {
 
 function showJuego() {
   showPanel(juego);
-  if (gameWin === True) {
+  if (gameWin === true) {
     () => {
       hideAllPanel();
       showWin();
