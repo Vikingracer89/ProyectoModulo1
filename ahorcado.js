@@ -94,10 +94,13 @@ function seleccionarDificultad() {
   let valor = Dificultad.value;
 
   if (valor == "1") {
-    palabras = faciles;
+    return faciles;
   } else if (valor == "2") {
-    palabras = normal;
+    return normal;
   } else {
-    palabras = dificil;
+    return dificil;
   }
 }
+
+// se supone que la funcion deberia retornar un array segun la seleccion del usuario.
+// La funcion lee y retorna el valor de la seleccion correctamente, pero no se como pasar esa seleccion a una constante y que el juego lea solo esa constante.
