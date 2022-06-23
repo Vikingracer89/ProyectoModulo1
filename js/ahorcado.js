@@ -1,5 +1,12 @@
 "use strict";
 
+const State = {
+  dificultad: 1,
+  palabra: "",
+  intentos: 0,
+  fallos: 0,
+};
+
 //Importacion de constantes desde modulos
 
 import { faciles } from "./diffacil.js";
@@ -14,7 +21,7 @@ const lose = document.querySelector(".lose");
 const win = document.querySelector(".win");
 
 // constante de prueba, borrar
-const gameWin = false;
+const gameWin = true;
 
 function showPanel(panel) {
   panel.classList.remove("hidden");
@@ -32,27 +39,54 @@ function main() {
   const presentacionButton = presentacion.querySelector("button");
 
   presentacionButton.addEventListener("click", () => {
+    seleccionarDificultad();
     hideAllPanel();
     showJuego();
-    seleccionarDificultad();
   });
+}
+
+function getRandomNumber(max) {
+  return Math.floor(Math.random() * (max + 1));
+}
+
+//const imgElement = document.createElement("img");
+//imgElement.setAttribute("src",`./img/${State.fallos}.jpg`)
+//imgElement.setAttribute("alt", "Ahorcado")
+
+function getWord(arrayPalabras) {
+  const lengtArray = arrayPalabras.length;
+  const palabraSelecionada = arrayPalabras[getRandomNumber(lengtArray - 1)];
+  console.log(palabraSelecionada);
+  return palabraSelecionada;
 }
 
 function showJuego() {
   showPanel(juego);
+  console.log("Estoy en el panel juego. Dificultad:", State.dificultad);
+
+  if (State.dificultad === 1) {
+    State.palabra = getWord(faciles);
+  } else if (State.dificultad === 2) {
+    State.palabra = getWord(normal);
+  } else {
+    State.palabra = getWord(dificil);
+  }
+
+  console.log("La palabra selecionada es:", State.palabra);
+
+  // desarrollar el juego
+
+  /*
   if (gameWin === true) {
-    () => {
-      hideAllPanel();
-      showWin();
-    };
+    hideAllPanel();
+    showWin();
   } else {
     {
-      () => {
-        hideAllPanel();
-        showLose();
-      };
+      hideAllPanel();
+      showLose();
     }
   }
+  */
 }
 
 function showWin() {
@@ -91,15 +125,7 @@ main();
 
 function seleccionarDificultad() {
   let dificultad = document.getElementById("Dificultad");
-  let valor = Dificultad.value;
-
-  if (valor == "1") {
-    return faciles;
-  } else if (valor == "2") {
-    return normal;
-  } else {
-    return dificil;
-  }
+  State.dificultad = +Dificultad.value;
 }
 
 // se supone que la funcion deberia retornar un array segun la seleccion del usuario.
