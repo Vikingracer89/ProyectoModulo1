@@ -24,3 +24,8 @@ section.win {
 section.panel.hidden {
   display: none;
 }
+
+#output {
+  background-color: green;
+  color: red;
+}

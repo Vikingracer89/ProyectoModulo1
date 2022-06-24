@@ -1,10 +1,11 @@
 "use strict";
 
+// valores del juego
 const State = {
   dificultad: 1,
-  palabra: "",
+  palabraSelecionada: "",
   intentos: 0,
-  fallos: 0,
+  contadorfallos: 0,
 };
 
 //Importacion de constantes desde modulos
@@ -20,12 +21,13 @@ const juego = document.querySelector(".juego");
 const lose = document.querySelector(".lose");
 const win = document.querySelector(".win");
 
-// constante de prueba, borrar
-const gameWin = true;
+// muestra los paneles
 
 function showPanel(panel) {
   panel.classList.remove("hidden");
 }
+
+// Esconde los paneles
 
 function hideAllPanel() {
   presentacion.classList.add("hidden");
@@ -33,6 +35,8 @@ function hideAllPanel() {
   lose.classList.add("hidden");
   win.classList.add("hidden");
 }
+
+// Funcion principal
 
 function main() {
   showPanel(presentacion);
@@ -45,20 +49,7 @@ function main() {
   });
 }
 
-function getRandomNumber(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-//const imgElement = document.createElement("img");
-//imgElement.setAttribute("src",`./img/${State.fallos}.jpg`)
-//imgElement.setAttribute("alt", "Ahorcado")
-
-function getWord(arrayPalabras) {
-  const lengtArray = arrayPalabras.length;
-  const palabraSelecionada = arrayPalabras[getRandomNumber(lengtArray - 1)];
-  console.log(palabraSelecionada);
-  return palabraSelecionada;
-}
+// panel del juego
 
 function showJuego() {
   showPanel(juego);
@@ -72,22 +63,69 @@ function showJuego() {
     State.palabra = getWord(dificil);
   }
 
-  console.log("La palabra selecionada es:", State.palabra);
+  console.log("La palabra selecionada es:", State.palabraSelecionada);
+}
 
-  // desarrollar el juego
+// desarrollo del juego
 
-  /*
-  if (gameWin === true) {
-    hideAllPanel();
-    showWin();
-  } else {
-    {
+// Seleccionar dificultad
+
+function seleccionarDificultad() {
+  let dificultad = document.getElementById("Dificultad");
+  State.dificultad = +Dificultad.value;
+}
+
+// Random number para aleatorizar las palabras
+
+function getRandomNumber(max) {
+  return Math.floor(Math.random() * (max + 1));
+}
+
+// Seleccion de la palabra
+
+function getWord(arrayPalabras) {
+  const lengtArray = arrayPalabras.length;
+  const palabraSelecionada = arrayPalabras[getRandomNumber(lengtArray - 1)];
+  console.log(palabraSelecionada);
+  return palabraSelecionada;
+}
+
+// Pone las palabras con guiones
+let palabraConGuiones = State.palabraSelecionada.replace(/./g, "_ ");
+
+//inserta la pabra con guiones en el HTML
+document.querySelector("#output").innerHTML = palabraConGuiones;
+
+//comprobacion de acierto/fallo al pulsar el boton
+document.querySelector("#comprobarLetra").addEventListener("click", () => {
+  const letra = document.querySelector("#letra").value;
+  let hafallado = true;
+  for (const i in State.palabraSelecionada) {
+    if (letra == palabra[i]) {
+      palabraConGuiones = palabraConGuiones.replaceAt(i * 2, letra);
+      hafallado = false;
+    }
+  }
+
+  //Condiciones de Victoria/Derrota
+  if (hafallado) {
+    State.contadorfallos++;
+    if (State.contadorfallos == 6) {
       hideAllPanel();
       showLose();
     }
+  } else {
+    if (palabraConGuiones.indexOf("") < 0) {
+      hideAllPanel();
+      showWin();
+    }
   }
-  */
-}
+  //resetea el input
+  document.querySelector("#letra").value = "";
+  document.querySelector("#letra").focus();
+});
+
+// panel ganador
 
 function showWin() {
   hideAllPanel();
@@ -103,6 +141,8 @@ function showWin() {
     showJuego();
   });
 }
+
+// Panel perdedor
 
 function showLose() {
   hideAllPanel();
@@ -120,13 +160,3 @@ function showLose() {
 }
 
 main();
-
-// Seleccionar dificultad
-
-function seleccionarDificultad() {
-  let dificultad = document.getElementById("Dificultad");
-  State.dificultad = +Dificultad.value;
-}
-
-// se supone que la funcion deberia retornar un array segun la seleccion del usuario.
-// La funcion lee y retorna el valor de la seleccion correctamente, pero no se como pasar esa seleccion a una constante y que el juego lea solo esa constante.
