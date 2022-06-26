@@ -4,9 +4,14 @@
   box-sizing: border-box;
 }
 
-section.presentacion {
+h1 {
+  text-align: center;
+  color: orangered;
   background-color: black;
-  color: white;
+}
+
+section.presentacion {
+  background-color: lightsalmon;
 }
 
 section.juego {

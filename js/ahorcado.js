@@ -7,7 +7,7 @@ const State = {
   intentos: 0,
   contadorfallos: 0,
 };
-
+let solucion = '';
 //Importacion de constantes desde modulos
 
 import { faciles } from "./diffacil.js";
@@ -56,11 +56,14 @@ function showJuego() {
   console.log("Estoy en el panel juego. Dificultad:", State.dificultad);
 
   if (State.dificultad === 1) {
-    State.palabra = getWord(faciles);
+    State.palabraSelecionada = getWord(faciles);
+    palabraAGuiones();
   } else if (State.dificultad === 2) {
-    State.palabra = getWord(normal);
+    State.palabraSelecionada = getWord(normal);
+    palabraAGuiones();
   } else {
-    State.palabra = getWord(dificil);
+    State.palabraSelecionada = getWord(dificil);
+    palabraAGuiones();
   }
 
   console.log("La palabra selecionada es:", State.palabraSelecionada);
@@ -72,7 +75,7 @@ function showJuego() {
 
 function seleccionarDificultad() {
   let dificultad = document.getElementById("Dificultad");
-  State.dificultad = +Dificultad.value;
+  State.dificultad = +dificultad.value;
 }
 
 // Random number para aleatorizar las palabras
@@ -85,58 +88,89 @@ function getRandomNumber(max) {
 
 function getWord(arrayPalabras) {
   const lengtArray = arrayPalabras.length;
-  const palabraSelecionada = arrayPalabras[getRandomNumber(lengtArray - 1)];
-  console.log(palabraSelecionada);
-  return palabraSelecionada;
+  State.palabraSelecionada = arrayPalabras[getRandomNumber(lengtArray - 1)];
+  console.log(State.palabraSelecionada);
+  //State.palabraSelecionada = palabraSelecionada;
+  return State.palabraSelecionada;
+}
+
+function palabraAGuiones() {
+  let lonPalabra = State.palabraSelecionada.length;
+  let palabraConGuiones = '';
+  for (let i = 0; i < lonPalabra; i++) {
+    palabraConGuiones += '-';    
+  }
+  State.palabraConGuiones = palabraConGuiones;
+  addP();
 }
 
 // Pone las palabras con guiones
-let palabraConGuiones = State.palabraSelecionada.replace(/./g, "_ ");
+//let palabraConGuiones = State.palabraSelecionada.replace(/./g, "_ ");
 
 //inserta la pabra con guiones en el HTML
-document.querySelector("#output").innerHTML = palabraConGuiones;
+//document.querySelector("#output").createTextNode = State.palabraConGuiones;
+
+function addP() {
+  const secElement = document.getElementById('game');
+  const pElement = document.createElement('p');
+  pElement.setAttribute('id', 'output');
+  pElement.textContent = `${State.palabraConGuiones}`;
+  secElement.append(pElement);
+}
 
 //comprobacion de acierto/fallo al pulsar el boton
 document.querySelector("#comprobarLetra").addEventListener("click", () => {
   const letra = document.querySelector("#letra").value;
-  let hafallado = true;
-  for (const i in State.palabraSelecionada) {
-    if (letra == palabra[i]) {
-      palabraConGuiones = palabraConGuiones.replaceAt(i * 2, letra);
-      hafallado = false;
+
+  const palSel = State.palabraSelecionada;
+  const palGui = State.palabraConGuiones;  
+
+  if (palSel.includes(letra)) {
+    for (let i = 0; i < palSel.length; i++) {
+      if (palSel[i] == letra) {
+        solucion += letra;
+      } else {
+        solucion += palGui[i];
+      };      
+    }
+    State.palabraConGuiones = solucion;
+    solucion = '';
+    if (document.getElementById('output')) {
+      document.getElementById('output').remove();
+      addP();
+    }
+    
+    if (State.palabraConGuiones == State.palabraSelecionada) {
+      showWin();
+    }
+  } else {
+    State.contadorfallos++;
+    if (State.contadorfallos == 6) {
+      showLose();
     }
   }
 
-  //Condiciones de Victoria/Derrota
-  if (hafallado) {
-    State.contadorfallos++;
-    if (State.contadorfallos == 6) {
-      hideAllPanel();
-      showLose();
-    }
-  } else {
-    if (palabraConGuiones.indexOf("") < 0) {
-      hideAllPanel();
-      showWin();
-    }
-  }
   //resetea el input
   document.querySelector("#letra").value = "";
   document.querySelector("#letra").focus();
 });
+
 
 // panel ganador
 
 function showWin() {
   hideAllPanel();
   showPanel(win);
+  document.getElementById('output').remove();
 
-  backButton.addeventListener("click", () => {
+  const homeButton = win.querySelector("button", 'home');
+  homeButton.addEventListener("click", () => {
     hideAllPanel();
-    showMain();
+    main();
   });
 
-  AgainButton.addeventListener("click", () => {
+  const againButton = win.querySelector("button", 'again');
+  againButton.addEventListener("click", () => {
     hideAllPanel();
     showJuego();
   });
@@ -147,16 +181,21 @@ function showWin() {
 function showLose() {
   hideAllPanel();
   showPanel(lose);
+  document.getElementById('output').remove();
 
-  backButton.addeventListener("click", () => {
+  const homeButton = lose.querySelector("button", 'home');
+  homeButton.addEventListener("click", () => {
     hideAllPanel();
-    showMain();
+    main();
   });
-
-  AgainButton.addeventListener("click", () => {
+  
+  const againButton = lose.querySelector("button", 'again');
+  againButton.addEventListener("click", () => {
     hideAllPanel();
     showJuego();
   });
 }
 
 main();
+//getWord(arrayPalabras);
+console.log(State);
