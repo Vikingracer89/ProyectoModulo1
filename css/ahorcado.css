@@ -11,11 +11,34 @@ h1 {
 }
 
 section.presentacion {
-  background-color: lightsalmon;
+  background-color: blanchedalmond;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+}
+
+section.presentacion h2 {
+  display: grid;
+  place-content: center;
+}
+
+section.presentacion p {
+  display: grid;
+  place-content: center;
+  max-width: 400px;
+  border: 2px solid lightgreen;
+  background-color: lightgreen;
+}
+
+section.presentacion label {
+  margin-top: 20px;
 }
 
 section.juego {
-  background-color: blue;
+  background-color: lightskyblue;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
 }
 
 section.lose {
@@ -31,6 +54,6 @@ section.panel.hidden {
 }
 
 #output {
-  background-color: green;
-  color: red;
+  background-color: white;
+  text-align: center;
 }

@@ -7,7 +7,8 @@ const State = {
   intentos: 0,
   contadorfallos: 0,
 };
-let solucion = '';
+let solucion = "";
+
 //Importacion de constantes desde modulos
 
 import { faciles } from "./diffacil.js";
@@ -53,7 +54,6 @@ function main() {
 
 function showJuego() {
   showPanel(juego);
-  console.log("Estoy en el panel juego. Dificultad:", State.dificultad);
 
   if (State.dificultad === 1) {
     State.palabraSelecionada = getWord(faciles);
@@ -65,8 +65,6 @@ function showJuego() {
     State.palabraSelecionada = getWord(dificil);
     palabraAGuiones();
   }
-
-  console.log("La palabra selecionada es:", State.palabraSelecionada);
 }
 
 // desarrollo del juego
@@ -89,31 +87,23 @@ function getRandomNumber(max) {
 function getWord(arrayPalabras) {
   const lengtArray = arrayPalabras.length;
   State.palabraSelecionada = arrayPalabras[getRandomNumber(lengtArray - 1)];
-  console.log(State.palabraSelecionada);
-  //State.palabraSelecionada = palabraSelecionada;
   return State.palabraSelecionada;
 }
 
 function palabraAGuiones() {
   let lonPalabra = State.palabraSelecionada.length;
-  let palabraConGuiones = '';
+  let palabraConGuiones = "";
   for (let i = 0; i < lonPalabra; i++) {
-    palabraConGuiones += '-';    
+    palabraConGuiones += "-";
   }
   State.palabraConGuiones = palabraConGuiones;
   addP();
 }
 
-// Pone las palabras con guiones
-//let palabraConGuiones = State.palabraSelecionada.replace(/./g, "_ ");
-
-//inserta la pabra con guiones en el HTML
-//document.querySelector("#output").createTextNode = State.palabraConGuiones;
-
 function addP() {
-  const secElement = document.getElementById('game');
-  const pElement = document.createElement('p');
-  pElement.setAttribute('id', 'output');
+  const secElement = document.getElementById("game");
+  const pElement = document.createElement("p");
+  pElement.setAttribute("id", "output");
   pElement.textContent = `${State.palabraConGuiones}`;
   secElement.append(pElement);
 }
@@ -123,7 +113,7 @@ document.querySelector("#comprobarLetra").addEventListener("click", () => {
   const letra = document.querySelector("#letra").value;
 
   const palSel = State.palabraSelecionada;
-  const palGui = State.palabraConGuiones;  
+  const palGui = State.palabraConGuiones;
 
   if (palSel.includes(letra)) {
     for (let i = 0; i < palSel.length; i++) {
@@ -131,15 +121,15 @@ document.querySelector("#comprobarLetra").addEventListener("click", () => {
         solucion += letra;
       } else {
         solucion += palGui[i];
-      };      
+      }
     }
     State.palabraConGuiones = solucion;
-    solucion = '';
-    if (document.getElementById('output')) {
-      document.getElementById('output').remove();
+    solucion = "";
+    if (document.getElementById("output")) {
+      document.getElementById("output").remove();
       addP();
     }
-    
+
     if (State.palabraConGuiones == State.palabraSelecionada) {
       showWin();
     }
@@ -155,21 +145,14 @@ document.querySelector("#comprobarLetra").addEventListener("click", () => {
   document.querySelector("#letra").focus();
 });
 
-
 // panel ganador
 
 function showWin() {
   hideAllPanel();
   showPanel(win);
-  document.getElementById('output').remove();
+  document.getElementById("output").remove();
 
-  const homeButton = win.querySelector("button", 'home');
-  homeButton.addEventListener("click", () => {
-    hideAllPanel();
-    main();
-  });
-
-  const againButton = win.querySelector("button", 'again');
+  const againButton = win.querySelector("button", "again");
   againButton.addEventListener("click", () => {
     hideAllPanel();
     showJuego();
@@ -181,15 +164,9 @@ function showWin() {
 function showLose() {
   hideAllPanel();
   showPanel(lose);
-  document.getElementById('output').remove();
+  document.getElementById("output").remove();
 
-  const homeButton = lose.querySelector("button", 'home');
-  homeButton.addEventListener("click", () => {
-    hideAllPanel();
-    main();
-  });
-  
-  const againButton = lose.querySelector("button", 'again');
+  const againButton = lose.querySelector("button", "again");
   againButton.addEventListener("click", () => {
     hideAllPanel();
     showJuego();
@@ -197,5 +174,3 @@ function showLose() {
 }
 
 main();
-//getWord(arrayPalabras);
-console.log(State);
