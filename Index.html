@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ahorcado</title>
-    <link rel="stylesheet" href="./ahorcado.css" />
+    <link rel="stylesheet" href="./css/ahorcado.css" />
   </head>
   <body>
     <h1>Juego del ahorcado</h1>
@@ -18,13 +18,13 @@
         la pantalla
       </p>
       <p>
-        Puedes elegir la dificultad, en las dificultades facil y normal tendras
-        6 intentos, pero en la dificultad dificil ¡solo 5!
+        Puedes elegir la dificultad, en las dificultades facil y normal. Tendras
+        6 intentos para adivinar la palabra.
       </p>
       <label for="Dificultad"
         >Por favor, selecciona la dificultad y haz click en comenzar</label
       >
-      <select name="Dificultad" id="Dificultad" multiple>
+      <select name="Dificultad" id="Dificultad">
         <option value="1">Facil</option>
         <option value="2">Normal</option>
         <option value="3">Dificil</option>
@@ -32,30 +32,27 @@
       <button class="start">Comenzar</button>
     </section>
 
-    <section class="panel juego hidden">
+    <section class="panel juego hidden" id="game">
       <p>Introduce una letra</p>
 
       <input type="text" maxlength="1" id="letra" />
       <button id="comprobarLetra">¿Esta mi letra?</button>
-
-      <p id="palabra"></p>
-
-      <section></section>
     </section>
     <section class="panel lose hidden">
       <h2>Lo siento, has perdido</h2>
       <img src="" alt="Has perdido" />
       <button class="again">Volver a Jugar</button>
       <button class="home">Volver al menu principal</button>
+      <section id="imagen"></section>
     </section>
 
     <section class="panel win hidden">
-      <h2>Lo siento, has perdido</h2>
+      <h2>Felicidades, has ganado</h2>
       <img src="" alt="Has Ganado" />
       <button class="again">Volver a Jugar</button>
       <button class="home">Volver al menu principal</button>
     </section>
 
-    <script type="module" src="./ahorcado.js"></script>
+    <script type="module" src="./js/ahorcado.js"></script>
   </body>
 </html>
